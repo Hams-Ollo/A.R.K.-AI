@@ -30,6 +30,57 @@ The Research Assistant implements a comprehensive academic citation system desig
 - **Citation Links**: Direct links to source documents and specific page references
 - **Citation Networks**: Visualization of interconnected sources and citations
 
+### System Architecture
+
+```mermaid
+graph TD
+    subgraph Frontend
+        UI[User Interface]
+        CV[Citation Viewer]
+        EX[Export Module]
+    end
+
+    subgraph Backend
+        CM[Citation Manager]
+        VM[Verification Module]
+        DB[(Vector Database)]
+        CDB[(Citation Database)]
+    end
+
+    subgraph Processing
+        PP[PDF Processor]
+        EP[Embedding Pipeline]
+        CP[Citation Parser]
+    end
+
+    %% Data Flow
+    UI --> CM
+    CM --> VM
+    VM --> DB
+    VM --> CDB
+    PP --> EP
+    EP --> DB
+    CP --> CDB
+    
+    %% Frontend Interactions
+    CM --> CV
+    CM --> EX
+    
+    %% Bidirectional
+    UI <--> CV
+    DB <--> VM
+    CDB <--> VM
+
+    %% Styling
+    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef secondary fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    
+    class UI,CV,EX primary
+    class CM,VM,PP,EP,CP secondary
+    class DB,CDB storage
+```
+
 ## 🚀 Quick Start
 
 1. Clone the repository and create a virtual environment:
