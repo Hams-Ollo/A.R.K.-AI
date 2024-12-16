@@ -1,21 +1,37 @@
+# Core Dependencies
 fastapi>=0.104.0
-uvicorn>=0.24.0
 streamlit>=1.28.0
 langchain>=0.0.350
+chromadb>=0.4.22
+
+# Document Processing
+PyMuPDF>=1.23.0  # PDF processing
+python-docx>=0.8.11  # DOCX processing
+openpyxl>=3.1.2  # Excel processing
+pandas>=2.1.3  # CSV and Excel processing
+markdown>=3.5.1  # Markdown processing
+
+# ML/AI
 langgraph>=0.0.20
 langchain-groq>=0.0.1
 langsmith>=0.0.75
-chromadb>=0.4.22
+sentence-transformers>=2.2.2
+torch>=2.1.0
+
+# Utilities
+uvicorn>=0.24.0
 pydantic>=2.5.2
 python-dotenv>=1.0.0
 psycopg2-binary>=2.9.9
 pgvector>=0.2.4
 redis>=5.0.1
 pypdf>=3.17.1
-pytest>=7.4.3
-httpx>=0.25.2
-python-multipart>=0.0.6
+python-json-logger>=2.0.7
 tqdm>=4.66.1
 numpy>=1.26.2
-pandas>=2.1.3
-sqlalchemy>=2.0.23
+httpx>=0.25.2
+python-multipart>=0.0.6
+
+# Testing
+pytest>=7.4.3
+pytest-cov>=4.1.0

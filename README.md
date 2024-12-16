@@ -4,82 +4,48 @@ A robust research assistant and intelligent semantic knowledge base repository f
 
 ## ✨ Features
 
-- 🤖 Advanced AI-powered research assistant
-- 📚 Semantic knowledge base for consciousness studies
-- 📝 Academic Citation System:
-  - Robust source verification and citation tracking
-  - Wikipedia-style reference management
-  - Page-level citation linking
-  - Citation export in multiple academic formats
-  - Source integrity verification
-- 🔍 Intelligent document search and analysis
-- 💬 Interactive chat interface with citation support
-- 📊 Document management system
-- 🔄 Real-time processing and responses
-- 🎯 Academic-focused research tools
+### 🤖 Core Capabilities
 
-## 🎯 Citation System
+- Advanced AI-powered research assistant
+- Semantic knowledge base for consciousness studies
+- Intelligent document search and analysis
+- Interactive chat interface with citation support
+- Document management system
+- Real-time processing and responses
+- Academic-focused research tools
 
-The Research Assistant implements a comprehensive academic citation system designed to maintain the highest standards of academic integrity:
+### 📚 Document Processing
 
-- **Source Verification**: Every response is grounded in verified source documents with precise page-level citations
-- **Citation Tracking**: Maintains a detailed history of citations and their usage context
-- **Reference Management**: Wikipedia-style reference numbering and formatting
-- **Export Formats**: Citations can be exported in various academic formats (APA, MLA, Chicago, etc.)
-- **Integrity Checks**: Automated verification of source material against citations
-- **Citation Links**: Direct links to source documents and specific page references
-- **Citation Networks**: Visualization of interconnected sources and citations
+- Intelligent PDF processing and text extraction
+- Smart document chunking with citation preservation
+- Comprehensive metadata extraction
+- Page-level content tracking
+- Multi-format document support
 
-### System Architecture
+### 🔍 Search & Retrieval
 
-```mermaid
-graph TD
-    subgraph Frontend
-        UI[User Interface]
-        CV[Citation Viewer]
-        EX[Export Module]
-    end
+- Advanced semantic search with ChromaDB
+- Hybrid search capabilities (semantic + keyword)
+- Metadata filtering and faceted search
+- Relevance scoring and ranking
+- Batch processing support
 
-    subgraph Backend
-        CM[Citation Manager]
-        VM[Verification Module]
-        DB[(Vector Database)]
-        CDB[(Citation Database)]
-    end
+### 📝 Citation System
 
-    subgraph Processing
-        PP[PDF Processor]
-        EP[Embedding Pipeline]
-        CP[Citation Parser]
-    end
+- Robust source verification and citation tracking
+- Wikipedia-style reference management
+- Page-level citation linking
+- Citation export in multiple academic formats
+- Source integrity verification
+- Citation network visualization
 
-    %% Data Flow
-    UI --> CM
-    CM --> VM
-    VM --> DB
-    VM --> CDB
-    PP --> EP
-    EP --> DB
-    CP --> CDB
-    
-    %% Frontend Interactions
-    CM --> CV
-    CM --> EX
-    
-    %% Bidirectional
-    UI <--> CV
-    DB <--> VM
-    CDB <--> VM
+### 📊 Performance & Monitoring
 
-    %% Styling
-    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    classDef secondary fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
-    classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px
-    
-    class UI,CV,EX primary
-    class CM,VM,PP,EP,CP secondary
-    class DB,CDB storage
-```
+- Comprehensive logging system
+- Performance monitoring and metrics
+- Error tracking and handling
+- System health monitoring
+- Resource usage optimization
 
 ## 🚀 Quick Start
 
@@ -132,32 +98,89 @@ streamlit run app/frontend/Home.py
 ```curl
 research-assistant/
 ├── app/
-│   ├── backend/         # API and server-side logic
-│   ├── frontend/        # Streamlit UI components
-│   │   ├── Home.py     # Main application entry
-│   │   └── pages/      # Additional UI pages
-│   └── utils/          # Shared utilities
-├── docs/               # Documentation
-├── tests/              # Test suite
-├── .env               # Environment variables
+│   ├── backend/
+│   │   ├── agents/          # AI agents and LLM integration
+│   │   ├── api/            # FastAPI endpoints
+│   │   ├── processing/     # Document processing pipeline
+│   │   ├── vector_store/   # Vector storage implementation
+│   │   └── models.py       # Data models
+│   ├── frontend/
+│   │   ├── Home.py        # Main application entry
+│   │   └── pages/         # Additional UI pages
+│   └── utils/             # Shared utilities
+├── data/                  # Data storage
+│   ├── vector_store/     # ChromaDB storage
+│   └── test_documents/   # Test PDFs
+├── docs/                 # Documentation
+├── logs/                 # Application logs
+├── tests/               # Test suite
+├── .env                # Environment variables
 ├── requirements.txt    # Python dependencies
 └── README.md
 ```
 
 ## 🛠️ Tech Stack
 
+### Core Components
+
 - **Frontend**: Streamlit
 - **Backend**: FastAPI
+- **Vector Store**: ChromaDB (with planned migration to PostgreSQL/pgvector)
 - **AI/ML**: LangChain, Groq
-- **Database**: PostgreSQL (with pgvector)
-- **Caching**: Redis
-- **Dependencies**:
-  - fastapi >= 0.104.0
-  - streamlit >= 1.28.0
-  - langchain >= 0.0.350
-  - chromadb >= 0.4.22
-  - pandas >= 2.1.3
-  - And more in requirements.txt
+- **Document Processing**: PyMuPDF, LangChain
+- **Embeddings**: Sentence Transformers
+
+### Dependencies
+
+- fastapi >= 0.104.0
+- streamlit >= 1.28.0
+- langchain >= 0.0.350
+- chromadb >= 0.4.22
+- PyMuPDF >= 1.23.0
+- sentence-transformers >= 2.2.2
+- python-json-logger >= 2.0.7
+- And more in requirements.txt
+
+## 🔧 Development
+
+### Setting Up Development Environment
+
+1. Install development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+1. Run tests:
+
+```bash
+pytest tests/
+```
+
+1. Manual testing:
+
+```bash
+python tests/manual_test.py
+```
+
+### Logging and Monitoring
+
+The application includes comprehensive logging:
+
+- Structured JSON logging
+- Performance monitoring
+- Error tracking
+- Log rotation
+- Component-specific logging
+
+### Vector Store
+
+Currently using ChromaDB for vector storage with planned migration to PostgreSQL/pgvector:
+
+- Document storage and retrieval
+- Similarity search
+- Metadata filtering
+- Batch processing
 
 ## 🤝 Contributing
 
@@ -188,5 +211,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-- 🏛️ Bhaktivedanta Institute
-- [Add other acknowledgments]
+Special thanks to the Bhaktivedanta Institute for their support and guidance in developing this research tool for consciousness studies.
