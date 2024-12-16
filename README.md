@@ -1,6 +1,13 @@
-# 🎓 Research Assistant - Bhaktivedanta Institute
+# ARK AI
 
-A robust research assistant and intelligent semantic knowledge base repository for the academic study of consciousness, developed for the Bhaktivedanta Institute.
+![version](https://img.shields.io/badge/version-0.2.0--alpha-blue)
+![status](https://img.shields.io/badge/status-alpha-orange)
+![python](https://img.shields.io/badge/python-3.9%2B-green)
+![license](https://img.shields.io/badge/license-MIT-purple)
+
+> ⚠️ **Alpha Release**: This software is in active development. Features and APIs may change without notice.
+
+A robust research assistant and intelligent semantic knowledge base repository for the academic study of consciousness, inspired by the Bhaktivedanta Institute.
 
 ## ✨ Features
 
@@ -49,9 +56,19 @@ A robust research assistant and intelligent semantic knowledge base repository f
 
 ## 🚀 Quick Start
 
+### Prerequisites
+
+- Python 3.9 or higher
+- Git
+- Virtual environment (recommended)
+
+### Installation
+
 1. Clone the repository and create a virtual environment:
 
 ```bash
+git clone https://github.com/yourusername/ark-ai.git
+cd ark-ai
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # or
@@ -96,7 +113,7 @@ streamlit run app/frontend/Home.py
 ## 📁 Project Structure
 
 ```curl
-research-assistant/
+ark-ai/
 ├── app/
 │   ├── backend/
 │   │   ├── agents/          # AI agents and LLM integration
@@ -110,7 +127,7 @@ research-assistant/
 │   └── utils/             # Shared utilities
 ├── data/                  # Data storage
 │   ├── vector_store/     # ChromaDB storage
-│   └── test_documents/   # Test PDFs
+│   └── test_documents/   # Test documents
 ├── docs/                 # Documentation
 ├── logs/                 # Application logs
 ├── tests/               # Test suite
@@ -212,3 +229,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgments
 
 Special thanks to the Bhaktivedanta Institute for their support and guidance in developing this research tool for consciousness studies.
+
+## 📝 Changelog
+
+### v0.2.0-alpha (2024-12-16)
+
+- Added multi-format document processing
+- Enhanced logging and monitoring
+- Improved error handling
+- Updated documentation and branding to ARK AI
+
+### v0.1.0-alpha (Initial Release)
+
+- Basic PDF processing
+- ChromaDB integration
+- Simple search functionality
+- Initial documentation
