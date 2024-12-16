@@ -1,4 +1,4 @@
-# ARK AI
+# ARK AI | Academic Research Knowledgebase
 
 ![version](https://img.shields.io/badge/version-0.2.1--alpha-blue)
 ![status](https://img.shields.io/badge/status-alpha-orange)
