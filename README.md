@@ -258,3 +258,133 @@ Special thanks to the Bhaktivedanta Institute for their support and guidance in 
 - ChromaDB integration
 - Simple search functionality
 - Initial documentation
+
+## 🔄 Application Workflow
+
+```mermaid
+graph TB
+    %% Frontend Components
+    subgraph Frontend["Frontend (Streamlit)"]
+        UI[/"User Interface"/]
+        Chat["Chat Interface"]
+        Upload["Document Upload"]
+        Settings["Settings & Config"]
+    end
+
+    %% Backend Components
+    subgraph Backend["Backend Services"]
+        direction TB
+        subgraph Agents["AI Agents"]
+            RL["Research Librarian"]
+            Tools["Research Tools"]
+        end
+        
+        subgraph Storage["Storage Layer"]
+            VS["Vector Store<br>(ChromaDB)"]
+            DS["Document Store"]
+            Cache["Cache Layer"]
+        end
+        
+        subgraph Processing["Document Processing"]
+            DP["Document Processor"]
+            CE["Content Extractor"]
+            Chunker["Text Chunker"]
+        end
+        
+        subgraph AIServices["AI Services"]
+            LLM["LLM (Llama 3 70B)<br>via Groq"]
+            Embeddings["Embeddings Service"]
+        end
+        
+        subgraph Utils["Utilities"]
+            Logger["CLI Logger"]
+            Monitor["Performance Monitor"]
+            ErrorTrack["Error Tracker"]
+        end
+    end
+
+    %% External Services
+    subgraph External["External Services"]
+        GroqAPI["Groq API"]
+    end
+
+    %% Data Flow
+    UI --> Chat
+    UI --> Upload
+    UI --> Settings
+    
+    %% Chat Flow
+    Chat -->|"1. Send Message"| RL
+    RL -->|"2. Process"| Tools
+    RL -->|"3. Query"| VS
+    RL -->|"4. Generate"| LLM
+    LLM -->|"5. Response"| RL
+    RL -->|"6. Format"| Chat
+    
+    %% Document Flow
+    Upload -->|"1. New Doc"| DP
+    DP -->|"2. Extract"| CE
+    CE -->|"3. Chunk"| Chunker
+    Chunker -->|"4. Embed"| Embeddings
+    Embeddings -->|"5. Store"| VS
+    DP -->|"6. Metadata"| DS
+    
+    %% AI Services Flow
+    LLM <-->|"API Calls"| GroqAPI
+    
+    %% Logging & Monitoring
+    Logger -.->|"Log Events"| Backend
+    Monitor -.->|"Track Performance"| Backend
+    ErrorTrack -.->|"Handle Errors"| Backend
+    
+    %% Storage Interactions
+    VS <--> Cache
+    DS <--> Cache
+
+    %% Styling
+    classDef frontend fill:#d4e6f1,stroke:#2874a6,stroke-width:2px
+    classDef backend fill:#d5f5e3,stroke:#196f3d,stroke-width:2px
+    classDef external fill:#fdebd0,stroke:#d35400,stroke-width:2px
+    classDef storage fill:#ebdef0,stroke:#8e44ad,stroke-width:2px
+    classDef process fill:#fad7a0,stroke:#b9770e,stroke-width:2px
+    classDef service fill:#f5b7b1,stroke:#c0392b,stroke-width:2px
+    
+    class Frontend,UI,Chat,Upload,Settings frontend
+    class Backend,RL,Tools,Logger,Monitor,ErrorTrack backend
+    class External,GroqAPI external
+    class VS,DS,Cache storage
+    class DP,CE,Chunker process
+    class LLM,Embeddings service
+```
+
+### Workflow Description
+
+1. **User Interaction Layer**
+   - Users interact with the Streamlit frontend
+   - Chat interface handles message processing
+   - Document upload interface manages file ingestion
+
+2. **AI Processing Layer**
+   - Research Librarian orchestrates AI operations
+   - Async message processing with proper error handling
+   - Enhanced CLI logging with contextual emojis
+
+3. **Document Processing Pipeline**
+   - Intelligent document chunking and extraction
+   - Metadata preservation and tracking
+   - Embedding generation and storage
+
+4. **Storage Layer**
+   - ChromaDB for vector storage
+   - Document store for metadata
+   - Caching for performance optimization
+
+5. **AI Services**
+   - Llama 3 70B model via Groq API
+   - Asynchronous API calls
+   - Response streaming support
+
+6. **Utility Layer**
+   - Rich terminal output with emojis
+   - Performance monitoring
+   - Error tracking and handling
