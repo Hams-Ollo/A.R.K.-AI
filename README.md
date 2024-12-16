@@ -80,13 +80,13 @@ source venv/bin/activate  # Linux/Mac
 .\venv\Scripts\activate  # Windows
 ```
 
-2. Install dependencies:
+1. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up environment variables:
+1. Set up environment variables:
 Create a `.env` file in the project root with:
 
 ```env
@@ -106,13 +106,13 @@ POSTGRES_HOST=your_host
 POSTGRES_PORT=your_port
 ```
 
-4. Run the application:
+1. Run the application:
 
 ```bash
 streamlit run app/frontend/Home.py
 ```
 
-5. Access the application at `http://localhost:8501`
+1. Access the application at `http://localhost:8501`
 
 ## 📁 Project Structure
 
