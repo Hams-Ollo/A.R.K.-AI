@@ -341,13 +341,13 @@ graph TB
     VS <--> Cache
     DS <--> Cache
 
-    %% Styling
-    classDef frontend fill:#d4e6f1,stroke:#2874a6,stroke-width:2px
-    classDef backend fill:#d5f5e3,stroke:#196f3d,stroke-width:2px
-    classDef external fill:#fdebd0,stroke:#d35400,stroke-width:2px
-    classDef storage fill:#ebdef0,stroke:#8e44ad,stroke-width:2px
-    classDef process fill:#fad7a0,stroke:#b9770e,stroke-width:2px
-    classDef service fill:#f5b7b1,stroke:#c0392b,stroke-width:2px
+    %% Styling with more readable colors
+    classDef frontend fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000000
+    classDef backend fill:#f1f8e9,stroke:#558b2f,stroke-width:2px,color:#000000
+    classDef external fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000000
+    classDef storage fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000000
+    classDef process fill:#fff8e1,stroke:#ffa000,stroke-width:2px,color:#000000
+    classDef service fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000000
     
     class Frontend,UI,Chat,Upload,Settings frontend
     class Backend,RL,Tools,Logger,Monitor,ErrorTrack backend
