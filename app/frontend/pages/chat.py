@@ -5,6 +5,8 @@ from datetime import datetime
 import httpx
 import os
 import sys
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 # Add project root to Python path
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -14,6 +16,7 @@ if project_root not in sys.path:
 from app.backend.agents.research_librarian import ResearchLibrarian
 from app.backend.vector_store.chroma_store import ChromaDocStore
 from app.backend.document_store.document_store import DocumentStore
+from app.utils.cli_logger import CliLogger
 
 def init_session_state():
     """Initialize session state variables."""
@@ -92,6 +95,28 @@ def display_research_context():
                     except Exception as e:
                         st.error(f"Error processing {file.name}: {str(e)}")
 
+async def process_message_async(librarian: ResearchLibrarian, prompt: str) -> Dict:
+    """Process message asynchronously."""
+    try:
+        CliLogger.info("Processing user message...", context='user_input',
+                      details={"message_length": len(prompt)})
+        response = await librarian.process_message(prompt)
+        CliLogger.success("Message processed successfully!", context='ai_response',
+                         details={"response_length": len(response)})
+        return response
+    except Exception as e:
+        CliLogger.error(f"Error processing message: {str(e)}")
+        raise
+
+def run_async(coro):
+    """Run an async coroutine in a synchronous context."""
+    try:
+        loop = asyncio.get_event_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    return loop.run_until_complete(coro)
+
 def main():
     st.set_page_config(
         page_title="ARK AI - Research Chat",
@@ -132,26 +157,22 @@ def main():
         # Get AI response
         with st.spinner("Researching..."):
             try:
-                # Process message through Research Librarian
-                response = st.session_state.librarian.process_message(prompt)
+                # Process message through Research Librarian asynchronously
+                response = run_async(
+                    process_message_async(st.session_state.librarian, prompt)
+                )
                 
                 ai_message = {
                     "role": "assistant",
-                    "content": response["content"],
-                    "citations": response.get("citations", []),
-                    "suggestions": response.get("suggestions", []),
+                    "content": response,
                     "timestamp": datetime.now().isoformat()
                 }
                 
                 st.session_state.messages.append(ai_message)
                 display_message(ai_message)
                 
-                # Update research context if available
-                if "context_update" in response:
-                    st.session_state.research_context = response["context_update"]
-                    st.rerun()
-                    
             except Exception as e:
+                CliLogger.error(f"Error in chat interface: {str(e)}")
                 st.error(f"Error: {str(e)}")
                 st.session_state.messages.append({
                     "role": "assistant",

@@ -12,7 +12,8 @@ import logging
 from typing import List, Dict, Optional, Any
 import os
 from datetime import datetime
-from app.utils import performance_monitor, error_tracker, cli_logger
+from app.utils import performance_monitor, error_tracker
+from app.utils.cli_logger import CliLogger
 
 # Setup logging
 logger = logging.getLogger('research_assistant.vector_store')
@@ -41,7 +42,7 @@ class ChromaDocStore:
         # Create persist directory if it doesn't exist
         os.makedirs(persist_directory, exist_ok=True)
         
-        cli_logger.info("Initializing ChromaDB...", context='database',
+        CliLogger.info("Initializing ChromaDB...", context='database',
                        details={"persist_dir": persist_directory})
         
         # Initialize ChromaDB client
@@ -63,7 +64,7 @@ class ChromaDocStore:
             metadata={"created_at": datetime.utcnow().isoformat()}
         )
         
-        cli_logger.success("ChromaDB initialized successfully!", context='database',
+        CliLogger.success("ChromaDB initialized successfully!", context='database',
                          details={"collection": collection_name})
         
         logger.info(f"Initialized ChromaDB store at {persist_directory}")
@@ -88,7 +89,7 @@ class ChromaDocStore:
             List of document IDs
         """
         try:
-            cli_logger.info("Adding documents to vector store...", context='upload',
+            CliLogger.info("Adding documents to vector store...", context='upload',
                            details={"doc_count": len(documents)})
             
             if ids is None:
@@ -103,12 +104,12 @@ class ChromaDocStore:
                 ids=ids
             )
             
-            cli_logger.success("Documents added successfully!", context='upload')
+            CliLogger.success("Documents added successfully!", context='upload')
             logger.info(f"Added {len(documents)} documents to ChromaDB")
             return ids
             
         except Exception as e:
-            cli_logger.error(f"Error adding documents: {str(e)}")
+            CliLogger.error(f"Error adding documents: {str(e)}")
             logger.error(f"Error adding documents to ChromaDB: {str(e)}")
             raise
     
@@ -132,7 +133,7 @@ class ChromaDocStore:
             List of matching documents with metadata
         """
         try:
-            cli_logger.info("Performing similarity search...", context='search',
+            CliLogger.info("Performing similarity search...", context='search',
                            details={"query": query, "n_results": n_results})
             
             results = self.collection.query(
@@ -141,7 +142,7 @@ class ChromaDocStore:
                 where=metadata_filter
             )
             
-            cli_logger.success("Search completed", context='search',
+            CliLogger.success("Search completed", context='search',
                               details={"results_found": len(results['ids'][0])})
             
             logger.info(f"Performed similarity search for query: {query}")
@@ -159,7 +160,7 @@ class ChromaDocStore:
             return formatted_results
             
         except Exception as e:
-            cli_logger.error(f"Error performing similarity search: {str(e)}")
+            CliLogger.error(f"Error performing similarity search: {str(e)}")
             logger.error(f"Error performing similarity search: {str(e)}")
             raise
     
@@ -172,15 +173,15 @@ class ChromaDocStore:
             ids: List of document IDs to delete
         """
         try:
-            cli_logger.info("Deleting documents from vector store...", context='delete',
+            CliLogger.info("Deleting documents from vector store...", context='delete',
                            details={"doc_count": len(ids)})
             
             self.collection.delete(ids=ids)
             
-            cli_logger.success("Documents deleted successfully!", context='delete')
+            CliLogger.success("Documents deleted successfully!", context='delete')
             logger.info(f"Deleted {len(ids)} documents from ChromaDB")
         except Exception as e:
-            cli_logger.error(f"Error deleting documents: {str(e)}")
+            CliLogger.error(f"Error deleting documents: {str(e)}")
             logger.error(f"Error deleting documents: {str(e)}")
             raise
     
@@ -196,21 +197,21 @@ class ChromaDocStore:
             Document data if found, None otherwise
         """
         try:
-            cli_logger.info("Retrieving document from vector store...", context='retrieve',
+            CliLogger.info("Retrieving document from vector store...", context='retrieve',
                            details={"doc_id": doc_id})
             
             result = self.collection.get(ids=[doc_id])
             if result['ids']:
-                cli_logger.success("Document retrieved successfully!", context='retrieve')
+                CliLogger.success("Document retrieved successfully!", context='retrieve')
                 return {
                     'id': result['ids'][0],
                     'document': result['documents'][0],
                     'metadata': result['metadatas'][0]
                 }
-            cli_logger.error("Document not found", context='retrieve')
+            CliLogger.error("Document not found", context='retrieve')
             return None
         except Exception as e:
-            cli_logger.error(f"Error retrieving document: {str(e)}")
+            CliLogger.error(f"Error retrieving document: {str(e)}")
             logger.error(f"Error retrieving document {doc_id}: {str(e)}")
             raise
     
@@ -230,7 +231,7 @@ class ChromaDocStore:
             metadata: Optional new metadata
         """
         try:
-            cli_logger.info("Updating document in vector store...", context='update',
+            CliLogger.info("Updating document in vector store...", context='update',
                            details={"doc_id": doc_id})
             
             if metadata is None:
@@ -242,9 +243,9 @@ class ChromaDocStore:
                 metadatas=[metadata]
             )
             
-            cli_logger.success("Document updated successfully!", context='update')
+            CliLogger.success("Document updated successfully!", context='update')
             logger.info(f"Updated document {doc_id}")
         except Exception as e:
-            cli_logger.error(f"Error updating document: {str(e)}")
+            CliLogger.error(f"Error updating document: {str(e)}")
             logger.error(f"Error updating document {doc_id}: {str(e)}")
             raise

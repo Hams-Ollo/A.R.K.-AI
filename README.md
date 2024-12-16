@@ -1,6 +1,6 @@
 # ARK AI
 
-![version](https://img.shields.io/badge/version-0.2.0--alpha-blue)
+![version](https://img.shields.io/badge/version-0.2.1--alpha-blue)
 ![status](https://img.shields.io/badge/status-alpha-orange)
 ![python](https://img.shields.io/badge/python-3.9%2B-green)
 ![license](https://img.shields.io/badge/license-MIT-purple)
@@ -13,13 +13,14 @@ A robust research assistant and intelligent semantic knowledge base repository f
 
 ### 🤖 Core Capabilities
 
-- Advanced AI-powered research assistant
+- Advanced AI-powered research assistant using Llama 3 70B model
 - Semantic knowledge base for consciousness studies
 - Intelligent document search and analysis
 - Interactive chat interface with citation support
 - Document management system
 - Real-time processing and responses
 - Academic-focused research tools
+- Beautiful terminal interface with contextual emojis
 
 ### 📚 Document Processing
 
@@ -36,6 +37,7 @@ A robust research assistant and intelligent semantic knowledge base repository f
 - Metadata filtering and faceted search
 - Relevance scoring and ranking
 - Batch processing support
+- Asynchronous processing for better performance
 
 ### 📝 Citation System
 
@@ -54,6 +56,7 @@ A robust research assistant and intelligent semantic knowledge base repository f
 - Error tracking and handling
 - System health monitoring
 - Resource usage optimization
+- Asynchronous operations support
 
 ## 🚀 Quick Start
 
@@ -62,6 +65,7 @@ A robust research assistant and intelligent semantic knowledge base repository f
 - Python 3.9 or higher
 - Git
 - Virtual environment (recommended)
+- Groq API key for LLM access
 
 ### Installation
 
@@ -76,40 +80,39 @@ source venv/bin/activate  # Linux/Mac
 .\venv\Scripts\activate  # Windows
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-1. Set up environment variables:
+3. Set up environment variables:
 Create a `.env` file in the project root with:
 
 ```env
-# API Keys
+# LLM API Configuration
 GROQ_API_KEY=your_groq_api_key
-OPENAI_API_KEY=your_openai_api_key
 
-# Database Configuration
+# Model Configuration
+MODEL_NAME=llama3-groq-70b-8192-tool-use-preview
+MODEL_TEMPERATURE=0.7
+MODEL_MAX_TOKENS=8192
+
+# Database Configuration (Optional)
 POSTGRES_USER=your_postgres_user
 POSTGRES_PASSWORD=your_postgres_password
 POSTGRES_DB=your_database_name
 POSTGRES_HOST=your_host
 POSTGRES_PORT=your_port
-
-# Redis Configuration
-REDIS_HOST=your_redis_host
-REDIS_PORT=your_redis_port
-REDIS_PASSWORD=your_redis_password
 ```
 
-1. Run the application:
+4. Run the application:
 
 ```bash
 streamlit run app/frontend/Home.py
 ```
 
-1. Access the application at `http://localhost:8501`
+5. Access the application at `http://localhost:8501`
 
 ## 📁 Project Structure
 
@@ -125,7 +128,9 @@ ark-ai/
 │   ├── frontend/
 │   │   ├── Home.py        # Main application entry
 │   │   └── pages/         # Additional UI pages
-│   └── utils/             # Shared utilities
+│   └── utils/
+│       ├── cli_logger.py  # Enhanced terminal logging
+│       └── other utils    # Shared utilities
 ├── data/                  # Data storage
 │   ├── vector_store/     # ChromaDB storage
 │   └── test_documents/   # Test documents
@@ -142,11 +147,12 @@ ark-ai/
 ### Core Components
 
 - **Frontend**: Streamlit
-- **Backend**: FastAPI
+- **Backend**: FastAPI, AsyncIO
 - **Vector Store**: ChromaDB (with planned migration to PostgreSQL/pgvector)
-- **AI/ML**: LangChain, Groq
+- **AI/ML**: LangChain, Groq (Llama 3 70B)
 - **Document Processing**: PyMuPDF, LangChain
 - **Embeddings**: Sentence Transformers
+- **CLI**: Rich (terminal formatting)
 
 ### Dependencies
 
@@ -157,6 +163,7 @@ ark-ai/
 - PyMuPDF >= 1.23.0
 - sentence-transformers >= 2.2.2
 - python-json-logger >= 2.0.7
+- rich >= 13.9.0
 - And more in requirements.txt
 
 ## 🔧 Development
@@ -233,7 +240,12 @@ Special thanks to the Bhaktivedanta Institute for their support and guidance in 
 
 ## 📝 Changelog
 
-### v0.2.0-alpha (2024-12-16)
+### v0.2.1-alpha (2024-12-16)
+
+- Updated README with latest features, model configuration, and dependencies
+- Improved documentation and branding to ARK AI
+
+### v0.2.0-alpha (2024-12-15)
 
 - Added multi-format document processing
 - Enhanced logging and monitoring
