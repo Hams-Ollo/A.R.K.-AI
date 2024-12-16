@@ -6,11 +6,29 @@ A robust research assistant and intelligent semantic knowledge base repository f
 
 - 🤖 Advanced AI-powered research assistant
 - 📚 Semantic knowledge base for consciousness studies
+- 📝 Academic Citation System:
+  - Robust source verification and citation tracking
+  - Wikipedia-style reference management
+  - Page-level citation linking
+  - Citation export in multiple academic formats
+  - Source integrity verification
 - 🔍 Intelligent document search and analysis
-- 💬 Interactive chat interface
+- 💬 Interactive chat interface with citation support
 - 📊 Document management system
 - 🔄 Real-time processing and responses
 - 🎯 Academic-focused research tools
+
+## 🎯 Citation System
+
+The Research Assistant implements a comprehensive academic citation system designed to maintain the highest standards of academic integrity:
+
+- **Source Verification**: Every response is grounded in verified source documents with precise page-level citations
+- **Citation Tracking**: Maintains a detailed history of citations and their usage context
+- **Reference Management**: Wikipedia-style reference numbering and formatting
+- **Export Formats**: Citations can be exported in various academic formats (APA, MLA, Chicago, etc.)
+- **Integrity Checks**: Automated verification of source material against citations
+- **Citation Links**: Direct links to source documents and specific page references
+- **Citation Networks**: Visualization of interconnected sources and citations
 
 ## 🚀 Quick Start
 
